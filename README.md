@@ -2,7 +2,8 @@
 Hi! Thanks for your interest in my BnS Mod Manager-ish.
 
 Step 1:
-First of all, make sure the "Blade and Soul Mod Manager-ish.exe" is in its own folder, because it will create 2 folders for itself!
+First of all, please make sure you always run the application as administrator (right click the .exe file, and then select "Run as administrator".)
+Second, make sure the "Blade and Soul Mod Manager-ish.exe" is in its own folder, because it will create 2 folders for itself!
 Now, launch the application and set your Blade and Soul directory by pressing the "Set BnS Folder" button.
 Then navigate to the CookedPC folder located in your BnS installation folder.
 For me that was in: C:\GAMES\NCSOFT\BnS\contents\Local\NCWEST\English\CookedPC
