@@ -63,8 +63,8 @@ namespace BnSModBackup
                 // Isn't set
                 if (outputMessage)
                 {
-                    textLog.AppendText("[Notice] Your Blade and Soul directory has not been set. Please use the \"Set Bns Folder\" button to fix this as this. This application is useless without it.");
                     textLog.AppendText(Environment.NewLine);
+                    textLog.AppendText("[Notice] Your Blade and Soul directory has not been set. Please use the \"Set Bns Folder\" button to fix this as this. This application is useless without it.");
                 }
 
                 bnsFolderIsSet = false;
@@ -307,11 +307,11 @@ namespace BnSModBackup
                     Properties.Settings.Default.BnSInstallDir = bnsFolderPath;
                     Properties.Settings.Default.Save();
 
-                    bnsFolderTextBox.Text = bnsFolderPath;
-                    bnsFolderIsSet = true;
-                    done = true;
+                    isBnsFolderSet();
 
-                    checkButtons();
+                    checkButtons(true);
+
+                    done = true;
                 }
             }
         }
@@ -392,7 +392,7 @@ namespace BnSModBackup
             textLog.AppendText(Environment.NewLine);
             textLog.AppendText("[Log] Checking Mods Folder...");
 
-            checkButtons();
+            checkButtons(true);
         }
         
         private void bw_DoWork(object sender, DoWorkEventArgs e)
