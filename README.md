@@ -1,4 +1,4 @@
-# Blade-and-soul-Mod-Manager-ish
+# Blade and Soul Mod Manager-ish
 Hi! Thanks for your interest in my BnS Mod Manager-ish.
 
 Step 1:
