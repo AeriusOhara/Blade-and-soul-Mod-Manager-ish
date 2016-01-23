@@ -15,6 +15,7 @@ namespace BnSModBackup
 {
     public partial class mainForm : Form
     {
+        public BackgroundWorker bw;
         public static string workingPath = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
         public string modFolderPath = workingPath + "\\mods";
         public string backupFolderPath = workingPath + "\\backups";
@@ -23,6 +24,7 @@ namespace BnSModBackup
         public string ncsoftExeFolderPath = "";
         public bool bnsFolderIsSet = true;
         public bool ncsoftFolderIsSet = true;
+        public bool installFlag = true;
 
         public mainForm()
         {
@@ -32,7 +34,10 @@ namespace BnSModBackup
         private void mainForm_Load(object sender, EventArgs e)
         {
             textLog.AppendText("Beep Boop, I am a text log.");
-            textLog.AppendText(Environment.NewLine);
+
+            // Set up backgroundworker or it will crash the application if you quit
+            // without it aleast being used (so, set) at least once
+            bw = new BackgroundWorker();
 
             // Create the "backups" and "mods" folder
             System.IO.Directory.CreateDirectory(workingPath + "\\backups\\"); // Won't do anything if the folder already exists
@@ -45,7 +50,7 @@ namespace BnSModBackup
             isNCSoftFolderSet(true);
 
             // Check which buttons should be enabled
-            checkButtons();
+            checkButtons(true);
 
             // Check the DropDownMenu
             checkDropDownMenuSelection();
@@ -101,7 +106,35 @@ namespace BnSModBackup
             return true;
         }
 
-        private void checkButtons()
+        private void disableButtons()
+        {
+            performInstall.Enabled = false;
+            performDeInstall.Enabled = false;
+            bnsFolderButton.Enabled = false;
+            ncsoftFolderBtn.Enabled = false;
+            refreshModsBtn.Enabled = false;
+            openModsFolderBtn.Enabled = false;
+            gameVersionDropDownMenu.Enabled = false;
+            launchGameBtn.Enabled = false;
+            launchNCSoftLauncherBtn.Enabled = false;
+        }
+
+        private void enableButtons()
+        {
+            //performInstall.Enabled = true;
+            //performDeInstall.Enabled = true;
+            bnsFolderButton.Enabled = true;
+            ncsoftFolderBtn.Enabled = true;
+            refreshModsBtn.Enabled = true;
+            openModsFolderBtn.Enabled = true;
+            gameVersionDropDownMenu.Enabled = true;
+            launchGameBtn.Enabled = true;
+            launchNCSoftLauncherBtn.Enabled = true;
+
+            checkButtons();
+        }
+
+        private void checkButtons(bool output = false)
         {
             int i = 0;
             //textLog.Clear();
@@ -128,15 +161,21 @@ namespace BnSModBackup
                 // How about the mods folder?
                 if (i == 0)
                 {
-                    // No .upk files anywhere, start panicking!
-                    textLog.AppendText("[Notice] " + "No .upk/mod files detected in the \"mods\" folder. You can add some by pressing the \"Open Mods Folder\" button below." +
-                                       "Then drag the mod files into the folder that opens and press the Refresh button to the left of it.");
-                    textLog.AppendText(Environment.NewLine);
+                    if (output)
+                    {
+                        // No .upk files anywhere, start panicking!
+                        textLog.AppendText(Environment.NewLine);
+                        textLog.AppendText("[Notice] " + "No .upk/mod files detected in the \"mods\" folder. You can add some by pressing the \"Open Mods Folder\" button below." +
+                                           "Then drag the mod files into the folder that opens and press the Refresh button to the left of it.");
+                    }
                 }
                 else
                 {
-                    textLog.AppendText("[Log] " + "Found " + i.ToString() + " .upk files in the \"mods\" folder.");
-                    textLog.AppendText(Environment.NewLine);
+                    if (output)
+                    {
+                        textLog.AppendText(Environment.NewLine);
+                        textLog.AppendText("[Log] " + "Found " + i.ToString() + " .upk files in the \"mods\" folder.");
+                    }
 
                     performInstall.Enabled = true;
                 }
@@ -144,8 +183,11 @@ namespace BnSModBackup
             else
             {
                 // "Found files in the "backups" folder, this takes priority as they are original files
-                textLog.AppendText("[Log] " + "Found " + j.ToString() + " .upk files in the \"backups\" folder.");
-                textLog.AppendText(Environment.NewLine);
+                if (output)
+                {
+                    textLog.AppendText(Environment.NewLine);
+                    textLog.AppendText("[Log] " + "Found " + j.ToString() + " .upk files in the \"backups\" folder.");
+                }
 
                 performDeInstall.Enabled = true;
             }
@@ -191,95 +233,42 @@ namespace BnSModBackup
 
         private void doInstall(object sender, EventArgs e)
         {
-            performInstall.Enabled = false;
+            //performInstall.Enabled = false;
 
-            doFileSwap(true);
+            installFlag = true;
+            doFileSwap();
 
-            performDeInstall.Enabled = true;
+            //performDeInstall.Enabled = true;
         }
 
         private void doDeInstall(object sender, EventArgs e)
         {
-            performDeInstall.Enabled = false;
+            //performDeInstall.Enabled = false;
 
-            doFileSwap(false);
+            installFlag = false;
+            doFileSwap();
 
-            performInstall.Enabled = true;
+            //performInstall.Enabled = true;
         }
 
-        private void doFileSwap(bool install)
+        private void doFileSwap()
         {
-            string sourceDir;
-            string sourceDir2;
-            string targetDir;
-            string targetDir2;
-            string message = string.Empty;
+            bw = new BackgroundWorker();
+            bw.WorkerSupportsCancellation = true;
+            bw.WorkerReportsProgress = true;
 
-            DirectoryInfo dirInfo = new DirectoryInfo(modFolderPath);
+            bw.DoWork += new DoWorkEventHandler(bw_DoWork);
+            bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
+            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
 
-            if (install)
+            // Disable all the buttons
+            disableButtons();
+
+            // If the background worker is not busy, which it shouldn't be
+            if (!bw.IsBusy)
             {
-                // moving original file into backup folder
-                sourceDir = originalFolderPath;
-                targetDir = backupFolderPath;
-
-                // moving mod file in place of the original we moved away
-                sourceDir2 = modFolderPath;
-                targetDir2 = originalFolderPath;
-
-                // Folder we'll scan for upk files
-                dirInfo = new DirectoryInfo(modFolderPath);
-                message = " into the \"backups\" folder.";
-            }
-            else
-            {
-                // moving the mod file back into mods folder
-                sourceDir = originalFolderPath;
-                targetDir = modFolderPath;
-
-                // moving original file back into its original directory
-                sourceDir2 = backupFolderPath;
-                targetDir2 = originalFolderPath;
-
-                // Folder we'll scan for upk files
-                dirInfo = new DirectoryInfo(backupFolderPath);
-                message = " back into its original folder.";
-            }
-
-            int fileCounter = 0;
-
-            foreach (var file in dirInfo.GetFiles("*.upk"))
-            {
-                // Always check if the file is actually present in the original folder (CookedPC)
-                if (File.Exists(originalFolderPath + "\\" + file.Name))
-                {
-                    textLog.AppendText("[Moving] " + file.Name + message);
-                    textLog.AppendText(Environment.NewLine);
-
-                    // Move original away
-                    //Directory.Move(sourceDir + "\\" + file.Name, targetDir + "\\" + file.Name);
-                    File.Copy(sourceDir + "\\" + file.Name, targetDir + "\\" + file.Name);
-                    File.Delete(sourceDir + "\\" + file.Name);
-
-                    // Move mod in place of original
-                    //Directory.Move(sourceDir2 + "\\" + file.Name, targetDir2 + "\\" + file.Name);
-                    File.Copy(sourceDir2 + "\\" + file.Name, targetDir2 + "\\" + file.Name);
-                    File.Delete(sourceDir2 + "\\" + file.Name);
-
-                    fileCounter++;
-                }
-            }
-
-            // Show how many files we moved
-            if (fileCounter > 0)
-            {
-                textLog.AppendText("[Log] Done! " + fileCounter + " files were moved.");
-                textLog.AppendText(Environment.NewLine);
-            }
-            else
-            {
-                textLog.AppendText("[Log] Done! No files were moved.");
-                textLog.AppendText(Environment.NewLine);
+                // If the background worker is not busy, lets get this thing started
+                bw.RunWorkerAsync();
             }
         }
 
@@ -400,10 +389,145 @@ namespace BnSModBackup
 
         private void refreshMods(object sender, EventArgs e)
         {
-            textLog.AppendText("[Log] Checking Mods Folder...");
             textLog.AppendText(Environment.NewLine);
+            textLog.AppendText("[Log] Checking Mods Folder...");
 
             checkButtons();
+        }
+        
+        private void bw_DoWork(object sender, DoWorkEventArgs e)
+        {
+            string sourceDir;
+            string sourceDir2;
+            string targetDir;
+            string targetDir2;
+            string message = string.Empty;
+
+            DirectoryInfo dirInfo = new DirectoryInfo(modFolderPath);
+            BackgroundWorker worker = sender as BackgroundWorker;
+
+            if (installFlag)
+            {
+                // moving original file into backup folder
+                sourceDir = originalFolderPath;
+                targetDir = backupFolderPath;
+
+                // moving mod file in place of the original we moved away
+                sourceDir2 = modFolderPath;
+                targetDir2 = originalFolderPath;
+
+                // Folder we'll scan for upk files
+                dirInfo = new DirectoryInfo(modFolderPath);
+                message = " into the \"backups\" folder.";
+            }
+            else
+            {
+                // moving the mod file back into mods folder
+                sourceDir = originalFolderPath;
+                targetDir = modFolderPath;
+
+                // moving original file back into its original directory
+                sourceDir2 = backupFolderPath;
+                targetDir2 = originalFolderPath;
+
+                // Folder we'll scan for upk files
+                dirInfo = new DirectoryInfo(backupFolderPath);
+                message = " back into its original folder.";
+            }
+
+            int fileCounter = 0;
+
+            int i = 0;
+            int max = dirInfo.GetFiles("*.upk").Length;
+            int curPercent = 0;
+
+            foreach (var file in dirInfo.GetFiles("*.upk"))
+            {
+                // Always check if the file is actually present in the original folder (CookedPC)
+                if (File.Exists(originalFolderPath + "\\" + file.Name))
+                {
+                    textLog.AppendText(Environment.NewLine);
+                    textLog.AppendText("[Moving] " + file.Name + message);
+
+                    // Move original away
+                    //Directory.Move(sourceDir + "\\" + file.Name, targetDir + "\\" + file.Name);
+                    File.Copy(sourceDir + "\\" + file.Name, targetDir + "\\" + file.Name, true);
+                    File.Delete(sourceDir + "\\" + file.Name);
+
+                    // Move mod in place of original
+                    //Directory.Move(sourceDir2 + "\\" + file.Name, targetDir2 + "\\" + file.Name);
+                    File.Copy(sourceDir2 + "\\" + file.Name, targetDir2 + "\\" + file.Name, true);
+                    File.Delete(sourceDir2 + "\\" + file.Name);
+
+                    fileCounter++;
+
+                    // Increment & update stats as well as progress bar
+                    i++;
+                    // This operating will only get to 50%, and the file transfer will be the other 50%
+                    curPercent = ((i * 100) / max);
+
+                    // Update the UI
+                    if ((worker.CancellationPending == true))
+                    {
+                        e.Cancel = true;
+                        break;
+                    }
+                    else
+                    {
+                        // Perform a time consuming operation and report progress.
+                        System.Threading.Thread.Sleep(50);
+                        worker.ReportProgress(curPercent);
+                    }
+                }
+            }
+
+            // Show how many files we moved
+            if (fileCounter > 0)
+            {
+                textLog.AppendText(Environment.NewLine);
+                textLog.AppendText("[Log] Done! " + fileCounter + " files were moved.");
+            }
+            else
+            {
+                textLog.AppendText(Environment.NewLine);
+                textLog.AppendText("[Log] Done! No files were moved.");
+            }
+        }
+
+        private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            this.progressBar.Value = e.ProgressPercentage;
+        }
+
+        private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if ((e.Cancelled == true))
+            {
+                // Cancelled
+            }
+            else if (!(e.Error == null))
+            {
+                // An error occured
+            }
+            else
+            {
+                // Done enable buttons and set the progressbar to 100%
+                this.progressBar.Value = 100;
+
+                enableButtons();
+            }
+        }
+
+        private void onCloseAttempt(object sender, FormClosingEventArgs e)
+        {
+            if (bw.IsBusy)
+            {
+                MessageBox.Show("Please do not close this application while it's installing or uninstalling mods!", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                e.Cancel = true;
+            }
+
+            //this.Close();
         }
     }
 }

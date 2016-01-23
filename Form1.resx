@@ -135,18 +135,18 @@ the "Set NCSoft Folder" button to enable it.</value>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="refreshModsBtn.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAJTSURBVDhPY8AEjIyMTCwsjAxMTCAmSERc3dFPUEbPEiIL
-        FMcKgIphkmAjWNm5QGzTuCU7zYAYxGZgZMbUDFIMooEaOBX0faNNwqauskzecMosef0x6+ILH11bXv+X
-        NwlPh6hlYgbRUABxHjsnD7959MJtTg1f/ltUfPxnUv7+v1HJi/8Gedf/GpXc+29ecPopt7C8GkQH2IUg
-        jUAfApFJ1LJtJrl3/0nZNq8R0U9qEzfJ6dOI237HpPzef4vaR79dp/z/rxXYNResmQnofCABdoKsYWS2
-        us/M/SycIuogn4PEQEAnfvUm5wn//psVHX0oa5vTys4vrQ62EKYGpJhXVN2chY1HCMxn5eAA0ez8MnL6
-        yesPS5rFlTGzcYuCxMAasQFQFIGcAmKzsHPzsXDwCTGzcgpA5JiZGJmB8lgB1BmsHLwCyjbJuY4le0/z
-        iqvogcSYWDk4oXI8YsoWNkzMLKwgPhBANHEJyCio2efWOhQfvRc08+9/p9Jdx4C2geMZZC+XgLRsQMuG
-        zcaBxc0gESZQWAEVgJ2i6lDS4d3z+79z48NfXt1P/3s1nX1sGNExTTuwts2uYNGygiO/foRP3XuakZGF
-        B6Qe4lJY4uAQEDNN333VtfXZf+e2R3/8Zv38H7n2//+Uvf/+FZz5/9+vc8cJVg5BWYRGGIAmSUFlZ3+r
-        uhf/LWpufTfO3HjMumTHCevsBesVrcLSgQHHB1aKLW3D4lvFf/IivZRtFyBirKAoAysG6oFnFEwAdT6n
-        sKquoIpLJFQMmBiYQMECDBd0jQwMALqxnkffAPKhAAAAAElFTkSuQmCC
+        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
+        wQIMF3SNDAwAurGeR98A8qEAAAAASUVORK5CYII=
 </value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

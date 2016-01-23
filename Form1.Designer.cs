@@ -34,7 +34,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.textLog = new System.Windows.Forms.TextBox();
             this.performDeInstall = new System.Windows.Forms.Button();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             this.bnsFolderTextBox = new System.Windows.Forms.TextBox();
             this.bnsFolderButton = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
@@ -44,7 +44,7 @@
             this.gameVersionDropDownMenu = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.launchNCSoftLauncherBtn = new System.Windows.Forms.Button();
-            this.ncsoftFolderButton = new System.Windows.Forms.Button();
+            this.ncsoftFolderBtn = new System.Windows.Forms.Button();
             this.ncsoftFolderTextBox = new System.Windows.Forms.TextBox();
             this.refreshModsBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -99,12 +99,12 @@
             this.performDeInstall.UseVisualStyleBackColor = true;
             this.performDeInstall.Click += new System.EventHandler(this.doDeInstall);
             // 
-            // progressBar1
+            // progressBar
             // 
-            this.progressBar1.Location = new System.Drawing.Point(0, 501);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(384, 10);
-            this.progressBar1.TabIndex = 13;
+            this.progressBar.Location = new System.Drawing.Point(0, 501);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(384, 10);
+            this.progressBar.TabIndex = 13;
             // 
             // bnsFolderTextBox
             // 
@@ -198,15 +198,15 @@
             this.launchNCSoftLauncherBtn.UseVisualStyleBackColor = true;
             this.launchNCSoftLauncherBtn.Click += new System.EventHandler(this.launchNCSoftLauncher);
             // 
-            // ncsoftFolderButton
+            // ncsoftFolderBtn
             // 
-            this.ncsoftFolderButton.Location = new System.Drawing.Point(246, 127);
-            this.ncsoftFolderButton.Name = "ncsoftFolderButton";
-            this.ncsoftFolderButton.Size = new System.Drawing.Size(110, 23);
-            this.ncsoftFolderButton.TabIndex = 25;
-            this.ncsoftFolderButton.Text = "Set NCSoft Folder";
-            this.ncsoftFolderButton.UseVisualStyleBackColor = true;
-            this.ncsoftFolderButton.Click += new System.EventHandler(this.setNCSoftDir);
+            this.ncsoftFolderBtn.Location = new System.Drawing.Point(246, 127);
+            this.ncsoftFolderBtn.Name = "ncsoftFolderBtn";
+            this.ncsoftFolderBtn.Size = new System.Drawing.Size(110, 23);
+            this.ncsoftFolderBtn.TabIndex = 25;
+            this.ncsoftFolderBtn.Text = "Set NCSoft Folder";
+            this.ncsoftFolderBtn.UseVisualStyleBackColor = true;
+            this.ncsoftFolderBtn.Click += new System.EventHandler(this.setNCSoftDir);
             // 
             // ncsoftFolderTextBox
             // 
@@ -233,7 +233,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(384, 511);
             this.Controls.Add(this.refreshModsBtn);
-            this.Controls.Add(this.ncsoftFolderButton);
+            this.Controls.Add(this.ncsoftFolderBtn);
             this.Controls.Add(this.ncsoftFolderTextBox);
             this.Controls.Add(this.launchNCSoftLauncherBtn);
             this.Controls.Add(this.label7);
@@ -244,7 +244,7 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.bnsFolderButton);
             this.Controls.Add(this.bnsFolderTextBox);
-            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.progressBar);
             this.Controls.Add(this.performDeInstall);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.performInstall);
@@ -254,6 +254,7 @@
             this.Name = "mainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Blade and Soul Mod Manager-ish";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.onCloseAttempt);
             this.Load += new System.EventHandler(this.mainForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -267,7 +268,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textLog;
         private System.Windows.Forms.Button performDeInstall;
-        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.TextBox bnsFolderTextBox;
         private System.Windows.Forms.Button bnsFolderButton;
         private System.Windows.Forms.Label label5;
@@ -277,7 +278,7 @@
         private System.Windows.Forms.ComboBox gameVersionDropDownMenu;
         private System.Windows.Forms.Button launchNCSoftLauncherBtn;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button ncsoftFolderButton;
+        private System.Windows.Forms.Button ncsoftFolderBtn;
         private System.Windows.Forms.TextBox ncsoftFolderTextBox;
         private System.Windows.Forms.Button refreshModsBtn;
     }
