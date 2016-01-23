@@ -2,6 +2,7 @@
 Hi! Thanks for your interest in my BnS Mod Manager-ish.
 
 Step 1:
+
 First of all, please make sure you always run the application as administrator (right click the .exe file, and then select "Run as administrator".)
 Second, make sure the "Blade and Soul Mod Manager-ish.exe" is in its own folder, because it will create 2 folders for itself!
 Now, launch the application and set your Blade and Soul directory by pressing the "Set BnS Folder" button.
@@ -11,6 +12,7 @@ Press OK when you select the CookedPC folder.
 You will see that the "Launch Blade and Soul" button became enabled, yay!
 
 Step 2, optional:
+
 Set the path to your NCSoft Launcher folder by pressing the "Set NCSoft Folder" button.
 Then navigate to find "NCSoft Launcher.exe".
 For me that was in: C:\Program Files (x86)\NCWest\NCLauncher
@@ -18,14 +20,17 @@ When you select the "NCSoft Launcher.exe" press Open and it will save the locati
 You might notice once again that now, the "Launch NCSoft Launcher" button became enabled.
 
 Step 3:
+
 Install your mods! Press the "Open Mods Folder" and drag all your .upk files into the folder that opens.
 Just .upk files, not zip or rar files, please. After that close the folder and press the Refresh icon.
 If everything goes alright, it should say "Found xxx .upk files in the mods folder", you're set!
 
 Step 4:
+
 Press the "Go" button to install the mods. This might take a moment, please sit back or grab a cup of coffee.
 
 Step 5:
+
 After making sure you have the right region selected from the dropdown menu above the "Launch Blade and Soul" button...
 Press the Launch Blade and Soul button to play the game!
 The only downside to this is that you will need to enter both your e-mail and password ingame, I couldn't find a way to 
