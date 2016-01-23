@@ -1,5 +1,5 @@
 # Blade-and-soul-Mod-Manager-ish
-Hi! Thanks for your interest in my BnS Mod Manger-ish.
+Hi! Thanks for your interest in my BnS Mod Manager-ish.
 
 Step 1:
 First of all, make sure the "Blade and Soul Mod Manager-ish.exe" is in its own folder, because it will create 2 folders for itself!
