@@ -32,7 +32,7 @@ have your e-mail be remembered, sorry! :(
 
 ---
 
-Extra info:
+#Extra info
 Why is there a Launch NCSoft Launcher button? My idea was to use this application like a 
 Blade and Soul launch hub. That way I could launch the game directly, or start the launcher 
 if there is an update. Speaking of which, when the game whines about there being an update,
@@ -41,7 +41,9 @@ If you do not do this and fire up the NCSoft Launcher, it will update and do a f
 notice your mods and patch them (adding to your total download size, plus you'll need to
 install your mods again!)
 
-Further disclaimer:
+---
+
+#Further disclaimer
 I have no idea what mods work for this. The only thing I have been using is the Japanese
 voices mods. So if there are any other mods you need to install differently than a simple
 fileswap then I can probably not help you, though you can let me know about it and I might
@@ -51,11 +53,16 @@ Also I am not responsible for your computer blowing up when you use this applica
 it really, really shouldn't happen since all this application does is swap around files and
 launch your game.
 
-Icons used:
+---
+
+#Icons used/credits:
+The folks on reddit who posted how to boot Blade and Soul directly without the lawnchair.
+
 Refresh icon: http://www.iconarchive.com/show/must-have-icons-by-visualpharm/Refresh-icon.html
+
 Heart icon: http://www.iconarchive.com/show/summer-love-cicadas-icons-by-raindropmemory/Favourite-icon.html
 
---
+---
 
 Any questions, bug/crash reports, praises(lol) can be sent to aerius.pso2[@]gmail.com if one wants to.
 Please be as discriptive as possible to help me fix something.
