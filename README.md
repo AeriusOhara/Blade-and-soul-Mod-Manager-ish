@@ -30,8 +30,6 @@ Press the Launch Blade and Soul button to play the game!
 The only downside to this is that you will need to enter both your e-mail and password ingame, I couldn't find a way to 
 have your e-mail be remembered, sorry! :(
 
----
-
 #Extra info
 Why is there a Launch NCSoft Launcher button? My idea was to use this application like a 
 Blade and Soul launch hub. That way I could launch the game directly, or start the launcher 
@@ -40,8 +38,6 @@ make sure to launch this application and press the "Undo" button next to the "Go
 If you do not do this and fire up the NCSoft Launcher, it will update and do a file check, 
 notice your mods and patch them (adding to your total download size, plus you'll need to
 install your mods again!)
-
----
 
 #Further disclaimer
 I have no idea what mods work for this. The only thing I have been using is the Japanese
@@ -52,8 +48,6 @@ expand the application if it isn't something very time consuming to implement.
 Also I am not responsible for your computer blowing up when you use this application, though
 it really, really shouldn't happen since all this application does is swap around files and
 launch your game.
-
----
 
 #Icons used/credits:
 The folks on reddit who posted how to boot Blade and Soul directly without the lawnchair.
