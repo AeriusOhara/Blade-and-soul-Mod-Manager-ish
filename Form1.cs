@@ -368,7 +368,12 @@ namespace BnSModBackup
         {
             Process bnsDirectLaunch = new Process();
             bnsDirectLaunch.StartInfo.FileName = bnsExeFolderPath + "\\client.exe";
-            bnsDirectLaunch.StartInfo.Arguments = " /LaunchByLauncher /SessKey:\"\" /MacAddr:\"\" /UserNick:\"bluepantsu.desu@gmail.com\" /CompanyID:\"0\" /ChannelGroupIndex:\" - 1\" /ServerAddr:\" \" /StartGameID:\"BNS\" /RepositorySub:\" \" /GamePath:\"\" /LoginMode 2 -lang:English -region:1";
+            bnsDirectLaunch.StartInfo.Arguments = " /LaunchByLauncher /SessKey:\"\" /MacAddr:\"\" /UserNick:\"\" /CompanyID:\"0\" /ChannelGroupIndex:\" - 1\" /ServerAddr:\" \" /StartGameID:\"BNS\" /RepositorySub:\" \" /GamePath:\"\" /LoginMode 2";
+            if(gameVersionDropDownMenu.SelectedIndex == 0)
+            {
+                // If we're booting the european version, add the needed arguments
+                bnsDirectLaunch.StartInfo.Arguments += " -lang:English -region:1";
+            }
             bnsDirectLaunch.Start();
         }
 
