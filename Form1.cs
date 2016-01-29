@@ -36,6 +36,10 @@ namespace BnSModBackup
 
         private void mainForm_Load(object sender, EventArgs e)
         {
+            // Create the "backups" and "mods" folder if they don't exist yet
+            System.IO.Directory.CreateDirectory(workingPath + "\\backups\\"); // Won't do anything if the folder already exists
+            System.IO.Directory.CreateDirectory(workingPath + "\\mods\\"); // Won't do anything if the folder already exists
+
             // Load JSON file FIRST
             // The app HAS to know from the get-go whether it's the first time the
             // new version of it is being ran or not. This way it can set itself
@@ -65,10 +69,6 @@ namespace BnSModBackup
             // Set up backgroundworker or it will crash the application if you quit
             // without it aleast being used (so, set) at least once
             bw = new BackgroundWorker();
-
-            // Create the "backups" and "mods" folder
-            System.IO.Directory.CreateDirectory(workingPath + "\\backups\\"); // Won't do anything if the folder already exists
-            System.IO.Directory.CreateDirectory(workingPath + "\\mods\\"); // Won't do anything if the folder already exists
 
             // Check whether the BnS install path is set or not
             isBnsFolderSet(true);
